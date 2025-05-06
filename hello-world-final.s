@@ -29,16 +29,44 @@ reset:
 
   ldx #0
 print:
-  lda message,x
+  lda reset,x
   beq loop
+  jsr print_hex
+  lda #$20
   jsr print_char
   inx
   jmp print
 
 loop:
-  jmp reset
+  jmp loop
 
-  message: .asciiz "6"
+message: .asciiz "123ABC"
+
+print_hex:
+  pha
+  lsr
+  lsr
+  lsr
+  lsr
+  jsr print_nibble
+  pla
+  and #$0f
+  jsr print_nibble
+  rts
+
+print_nibble:
+  clc
+  adc #$30
+  cmp #$3a
+  bcc small
+  clc
+  adc #$07
+small:  
+  jsr print_char
+  rts
+
+
+
 lcd_wait:
   pha
   lda #%00000000  ; Port B is input
