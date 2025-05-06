@@ -1,0 +1,15 @@
+# Binary files
+*.bin
+
+# Generated header files
+*.h
+
+# Arduino build directory
+build/
+
+# Arduino IDE build files
+*.hex
+*.elf
+
+# macOS system files
+.DS_Store 
