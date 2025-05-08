@@ -14,7 +14,7 @@ compile: $(SKETCH)/hello-world-final.h
 	arduino-cli compile --fqbn arduino:avr:mega $(SKETCH)
 
 upload: compile
-	arduino-cli upload -p /dev/cu.usbmodem11101 --fqbn arduino:avr:mega $(SKETCH)
+	arduino-cli upload -p /dev/cu.usbmodem1101 --fqbn arduino:avr:mega $(SKETCH)
 
 clean:
 	rm -f $(SKETCH)/hello-world-final.h hello-world-final.bin

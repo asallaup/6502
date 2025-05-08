@@ -20,7 +20,7 @@ reset:
 
   lda #%00111000 ; Set 8-bit mode; 2-line display; 5x8 font
   jsr lcd_instruction
-  lda #%00001110 ; Display on; cursor on; blink off
+  lda #%00001100 ; Display on; cursor on; blink off
   jsr lcd_instruction
   lda #%00000110 ; Increment and shift cursor; don't shift display
   jsr lcd_instruction
@@ -29,20 +29,20 @@ reset:
 
   ldx #0
 print:
-  lda reset,x
+  lda message,x
   beq loop
-  jsr print_hex
-  lda #$20
   jsr print_char
+  ;lda #$20
+  ;jsr print_char
   inx
   jmp print
 
 loop:
   jmp loop
 
-message: .asciiz "123ABC"
+message: .asciiz "Kim-1"
 
-print_hex:
+print_byte:
   pha
   lsr
   lsr
@@ -55,17 +55,14 @@ print_hex:
   rts
 
 print_nibble:
-  clc
-  adc #$30
-  cmp #$3a
-  bcc small
-  clc
-  adc #$07
-small:  
+  tay
+  lda ascii_table,y
   jsr print_char
   rts
 
+  
 
+ascii_table: .asciiz "0123456789abcdef"
 
 lcd_wait:
   pha
@@ -109,6 +106,7 @@ print_char:
   sta PORTA
   rts
 
+ 
   .org $fffc
   .word reset
   .word $0000

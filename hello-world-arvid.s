@@ -36,7 +36,7 @@ print:
   jmp print
 
 loop:
-  jmp reset
+  jmp loop
 
 message: .asciiz "6502 Hipp v.2!"
 
